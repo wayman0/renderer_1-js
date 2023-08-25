@@ -80,10 +80,12 @@ import {Vertex, Model, Camera} from "../scene/SceneExports.js";
 */
 export default function project(model, camera)
 {
-    const newVertexList = new Array(model.vertexList.length);
+    const newVertexList = new Array();
 
-    for(const v of model.vertexList)
+    for(let x = 0; x < model.vertexList.length; x += 1)
     {
+         const v = model.vertexList[x];
+         
         if(camera.perspective)
             newVertexList.push(new Vertex(v.x/-v.z, v.y/-v.z, -1));
         else

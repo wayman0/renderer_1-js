@@ -28,7 +28,7 @@ export default function model2camera(position)
 {
     const mod = position.model;
     const trans = position.translation;
-    const newVertexList = new Array(mod.vertexList.length());
+    const newVertexList = new Array();
 
     for(const v of mod.vertexList)
         newVertexList.push(trans.plus(v));
