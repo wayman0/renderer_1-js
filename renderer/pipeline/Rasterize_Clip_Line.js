@@ -30,7 +30,7 @@
 */
 
 //@ts-check
-import {rastDebug, doAntiAliasing, doGamma, logMessage, logPixel, logPixelsXAA, logPixelsYAA} from "./PipelineExports.js";
+import {rastDebug, logMessage, logPixel} from "./PipelineExports.js";
 import {Model, LineSegment} from "../scene/SceneExports.js";
 import {Viewport} from "../framebuffer/FramebufferExports.js";
 import Color from "../color/Color.js";
@@ -45,7 +45,7 @@ import { doCLipping } from "./Rasterize.js";
  * @param {LineSegment} ls the linesegment to be rasterized
  * @param {Viewport} vp the viewport to set the pixels in
  */
-export default function rasterize(model, ls, vp)
+export default function rastLine(model, ls, vp)
 {
 
     // all colors will be in float form
@@ -101,57 +101,80 @@ export default function rasterize(model, ls, vp)
 
     if(Math.abs(y1-y0) > Math.abs(x1-x0))
     {
-        const tempX = x0;
-        const tempY = y0;
-        x0=x1;
-        y0=y1;
-        x1=tempX;
-        y1=tempY;
-    }
-
-    const m = (y1 - y0)/(x1-x0);
-    
-    if(rastDebug)
-    {
-        logMessage("Slope m    = " + m);
-        logMessage(format("(x0_vp, y0_vp) = (%9.4f, %9.4f)", x0-1, h-y0));
-        logMessage(format("(x1_vp, y1_vp) = (%9.4f, %9.4f)", x1-1, h-y1));
-    }
-
-    let y = y0;
-
-    for(let x = Math.trunc(x0); x < Math.trunc(x1); x += 1, y += m)
-    {
-        const xVP = x - 1;
-        const yVP = h - (Math.trunc(Math.round(y)));
-
-        if(!doCLipping || (xVP >= 0 && xVP < w && yVP >= 0 && yVP < h))
-        {    if(rastDebug)
-                logPixel(NOT_Clipped, x, y, xVP, yVP, vp);
+        if(x1 < x0)
+        {
+            const tempX = x0;
+            const tempY = y0;
+            x0=x1;
+            y0=y1;
+            x1=tempX;
+            y1=tempY;
         }
-    }
+    
 
-    const isFloat = r1 <=1 && g1 <= 1 && b1 <= 1
-    if(!transposedLine)
-    {
-        const xVP = Math.trunc(x1) -1;
-        const yVP = h - Math.trunc(y1) - 1;
-
+        const m = (y1 - y0)/(x1-x0);
+        
         if(rastDebug)
-            logPixel(x1, y1, xVP, yVP, r1, g1, b1, vp);
+        {
+            logMessage("Slope m    = " + m);
+            logMessage(format("(x0_vp, y0_vp) = (%9.4f, %9.4f)", x0-1, h-y0));
+            logMessage(format("(x1_vp, y1_vp) = (%9.4f, %9.4f)", x1-1, h-y1));
+        }
 
-                // have to check if the color is in int or float representation
-        vp.setPixelVP(xVP, yVP, new Color(r1, g1, b1, isFloat? 1:255, isFloat));
+        let y = y0;
+
+        for(let x = Math.trunc(x0); x < Math.trunc(x1); x += 1, y += m)
+        {
+            const xVP = x - 1;
+            const yVP = h - (Math.trunc(Math.round(y)));
+
+            if(!doCLipping || (xVP >= 0 && xVP < w && yVP >= 0 && yVP < h))
+            {    if(rastDebug)
+                    logPixel(NOT_Clipped, x, y, xVP, yVP, vp);
+
+                vp.setPixelVP(xVP, yVP, c);
+            }
+            else if(doCLipping && rastDebug)
+                logPixel(CLIPPED, x, y, xVP, yVP, vp);
+        }
     }
     else
     {
-        const xVP = Math.trunc(y1) - 1;
-        const yVP  = h - Math.trunc(x1);
+        if(y1 < y0)
+        {
+            const tempx = x0; 
+            const tempy = y0;
+            x0 = x1;
+            x1 = tempx;
+            y0 = y1;
+            y1 = tempy;
+        }
+
+        const m = (x1 - x0) / (y1 -y0);
 
         if(rastDebug)
-            logPixel(y1, x1, xVP, yVP, r1, g1, b1, vp);
+        {
+            logMessage("Slope m = " + m + " (so 1/m = " + 1/m + ")");
+            logMessage(format("(x0_vp, y0_vp) = (%9.4f, %9.4f)", x0-1,h-y0));
+            logMessage(format("(x1_vp, y1_vp) = (%9.4f, %9.4f)", x1-1,h-y1));
+        }
 
-                // have to check if the color is in int or float representation
-        vp.setPixelVP(xVP, yVP, new Color(r1, g1, b1, isFloat? 1:255, isFloat))
+        let x = x0;
+
+        for(let y = Math.trunc(y0); y < Math.trunc(y1); x += m, y += 1)
+        {
+            const xVP = Math.trunc(Math.round(x)) - 1;
+            const yVP = h-y;
+
+            if(!doCLipping || (xVP >= 0 && xVP < w && yVP >= 0 && yVP < h))
+            {
+                if(rastDebug)
+                    logPixel(NOT_Clipped, x, y, xVP, yVP, vp);
+                
+                vp.setPixelVP(xVP, yVP, c);
+            }
+            else if(doCLipping && rastDebug)
+                logPixel(CLIPPED, x, y, xVP, yVP, vp);
+        }
     }
 }

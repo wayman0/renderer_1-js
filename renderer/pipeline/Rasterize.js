@@ -10,7 +10,7 @@
 */
 
 //@ts-check
-import {RastLine, RastPoint, logPrimitive} from "./PipelineExports.js";
+import {rastLine, rastPoint, logPrimitive} from "./PipelineExports.js";
 import {Model, LineSegment, Primitive, Point} from "../scene/SceneExports.js";
 import {Viewport} from "../framebuffer/FramebufferExports.js";
 
@@ -30,9 +30,9 @@ export function rasterize(model, vp)
         logPrimitive("3. Rasterize", model, p);
 
         if(p instanceof LineSegment)
-            RastLine(model, p, vp);
+            rastLine(model, p, vp);
         else if(p instanceof Point)
-            RastPoint(model, p, vp);
+            rastPoint(model, p, vp);
         else
             console.log("Incorrect Primitive: " + p);
 
@@ -49,20 +49,10 @@ export function setRastDebug(val)
     rastDebug = val;
 }
 
-/**
- * Set doAntiAliasing to be the given value
- * @param {boolean} val the value to set doAntiAliasing to be
+/** Set doClipping to be the specified value
+ * @param {boolean} val the value to set doClipping to be
  */
-export function setDoAntiAliasing(val)
+export function setDoClipping(val)
 {
-    doAntiAliasing = val;
-}
-
-/**
- * Set doGamma to be the specified value
- * @param {boolean} val the value to set doGamma to be
- */
-export function setDoGamma(val)
-{
-    doGamma = val;
+    doCLipping = val;
 }

@@ -1,3 +1,4 @@
+export {default as Scene} from "./Scene.js";
 export {default as Position} from "./Position.js";
 export {default as Camera} from "./Camera.js";
 export {default as Model} from "./Model.js";

@@ -24,6 +24,13 @@
 //@ts-check
 import {Model, Position, Vertex} from "../scene/SceneExports.js";
 
+/**
+ * Use the given positions translation vector to convert the models vertexes from 
+ * model space to camera space and then store the converted vertexes in a new model.
+ * 
+ * @param {Position} position the position containing the model and translation vector
+ * @returns {Model} a new model with the vertex coordinates in the camera system
+ */
 export default function model2camera(position)
 {
     const mod = position.model;
@@ -31,7 +38,7 @@ export default function model2camera(position)
     const newVertexList = new Array();
 
     for(const v of mod.vertexList)
-        newVertexList.push(trans.plus(v));
+        newVertexList.push(trans.plusVertex(v));
 
     return new Model(newVertexList, 
                      mod.primitiveList,

@@ -24,7 +24,7 @@ import format from "../StringFormat.js";
  * @param {Point} pt the point to be rasterized
  * @param {Viewport} vp the viewport to recieve the rasterized point
  */
-export default function rasterize(model, pt, vp)
+export default function rastPoint(model, pt, vp)
 {
     const CLIPPED = " : Clipped";
     const NOT_CLIPPED = "";
