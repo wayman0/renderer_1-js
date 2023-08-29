@@ -363,15 +363,15 @@ export default class Model
 
         console.log("");
         console.log("m1.addPrimitive(new Point(0, 0)")
-        m1.addPrimitive(new Point(0, 0));
+        m1.addPrimitive(new Point(0));
         console.log(m1.toString());
 
         console.log("");
         console.log("m1.addPrimitive(new ls(1, 3, 1, 3), new ls(1, 4, 1, 4), new ls(2, 3, 2, 3), new ls(2, 4, 2, 4)): ");
-        m1.addPrimitive(LineSegment.buildVertexColors(1, 3, 1, 3),
-                        LineSegment.buildVertexColors(1, 4, 1, 4),
-                        LineSegment.buildVertexColors(2, 3, 2, 3),
-                        LineSegment.buildVertexColors(2, 4, 2, 4));
+        m1.addPrimitive(LineSegment.buildVertex(1, 3),
+                        LineSegment.buildVertex(1, 4),
+                        LineSegment.buildVertex(2, 3),
+                        LineSegment.buildVertex(2, 4,));
         console.log(m1.toString());
 
         console.log("");
