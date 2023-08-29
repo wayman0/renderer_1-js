@@ -4,74 +4,77 @@
  * See LICENSE for details.
 */
 
-package renderer.models_L.turtlegraphics;
-
-import renderer.scene.Model;
-
 /**
    https://en.wikipedia.org/wiki/Sierpi%C5%84ski_curve#Arrowhead_curve
 */
-public class SierpinskiCurveTurtle extends Turtle
+//@ts-check
+
+import {Turtle} from "./TurtleExports.js";
+import {Model} from "../../scene/SceneExports.js";
+
+export default class SierpinskiCurveTurtle extends Turtle
 {
    /**
-      @param model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n       number of levels for the Sierpinski curve
-      @param length  side length
+      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n       number of levels for the Sierpinski curve
+      @param {number} length  side length
    */
-   public SierpinskiCurveTurtle(final Model model, final int n, final double length)
+   static buildModelLength(model, n, length)
    {
-      this(model, n, length, 0.0, 0.0, 0.0);
+      return new SierpinskiCurveTurtle(model, n, length, 0.0, 0.0, 0.0);
    }
 
 
    /**
-      @param model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n       number of levels for the Sierpinski curve
-      @param length  side length
-      @param xPos    the intial x-coordinate for this {@link Turtle}
-      @param yPos    the intial y-coordinate for this {@link Turtle}
+      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n       number of levels for the Sierpinski curve
+      @param {number} length  side length
+      @param {number} xPos    the intial x-coordinate for this {@link Turtle}
+      @param {number} yPos    the intial y-coordinate for this {@link Turtle}
    */
-   public SierpinskiCurveTurtle(final Model model, final int n, final double length,
-                                final double xPos, final double yPos)
+   static buildModelLengthPos(model, n, length, xPos, yPos)
    {
-      this(model, n, length, xPos, yPos, 0.0);
+      return new SierpinskiCurveTurtle(model, n, length, xPos, yPos, 0.0);
    }
 
 
    /**
-      @param model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n       number of levels for the Sierpinski curve
-      @param length  side length
-      @param xPos    the intial x-coordinate for this {@link Turtle}
-      @param yPos    the intial y-coordinate for this {@link Turtle}
-      @param z       the z-plane for this {@code Turtle}
+      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n       number of levels for the Sierpinski curve
+      @param {number} length  side length
+      @param {number} xPos    the intial x-coordinate for this {@link Turtle}
+      @param {number} yPos    the intial y-coordinate for this {@link Turtle}
+      @param {number} z       the z-plane for this {@code Turtle}
    */
-   public SierpinskiCurveTurtle(final Model model, final int n, final double length,
-                                final double xPos, final double yPos, final double z)
+   constructor(model, n, length, xPos, yPos, z)
    {
-      super(model, xPos, yPos, z);
-      curve(n, length, 60);
+      super(model, model.name, xPos, yPos, z);
+      this.#curve(n, length, 60);
    }
 
-
-   private void curve(final int n, final double length, final int angle)
+   /**
+    * 
+    * @param {number} n 
+    * @param {number} length 
+    * @param {number} angle 
+    */
+   #curve(n, length, angle)
    {
       if ( 0 == n )
       {
-         forward(length);
+         this.forwardDistance(length);
       }
       else
       {
-         turn(angle);
-         curve(n - 1, length / 2.0, -angle);
-         turn(-angle);
-         curve(n - 1, length / 2.0,  angle);
-         turn(-angle);
-         curve(n - 1, length / 2.0, -angle);
-         turn(angle);
+         this.turn(angle);
+         this.#curve(n - 1, length / 2.0, -angle);
+         this.turn(-angle);
+         this.#curve(n - 1, length / 2.0,  angle);
+         this.turn(-angle);
+         this.#curve(n - 1, length / 2.0, -angle);
+         this.turn(angle);
       }
    }
-
 }//SierpinskiCurveTurtle
 
 

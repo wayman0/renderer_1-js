@@ -4,59 +4,62 @@
  * See LICENSE for details.
 */
 
-package renderer.models_L.turtlegraphics;
-
-import renderer.scene.Model;
-
 /**
    https://commons.wikimedia.org/wiki/File:Turtle_Graphics_Spiral.svg
 */
-public class SpiralTurtle extends Turtle
+//@ts-check
+
+import {Turtle} from "./TurtleExports.js";
+import {Model} from "../../scene/SceneExports.js";
+
+export default class SpiralTurtle extends Turtle
 {
    /**
-      @param model  a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n      number of spirals
+      @param {Model} model  a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n      number of spirals
    */
-   public SpiralTurtle(final Model model, final int n)
+   static buildModelSpiral(model, n)
    {
-      this(model, n, 0.0, 0.0, 0.0);
+      return new SpiralTurtle(model, n, 0.0, 0.0, 0.0);
    }
 
 
    /**
-      @param model  a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n      number of spirals
-      @param xPos   the intial x-coordinate for this {@link Turtle}
-      @param yPos   the intial y-coordinate for this {@link Turtle}
+      @param {Model} model  a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n      number of spirals
+      @param {number} xPos   the intial x-coordinate for this {@link Turtle}
+      @param {number} yPos   the intial y-coordinate for this {@link Turtle}
    */
-   public SpiralTurtle(final Model model, final int n,
-                       final double xPos, final double yPos)
+   static buildModelPos(model, n, xPos, yPos)
    {
-      this(model, n, xPos, yPos, 0.0);
+      return new SpiralTurtle(model, n, xPos, yPos, 0.0);
    }
 
 
    /**
-      @param model  a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n      number of spirals
-      @param xPos   the intial x-coordinate for this {@link Turtle}
-      @param yPos   the intial y-coordinate for this {@link Turtle}
-      @param z      the z-plane for this {@code Turtle}
+      @param {Model} model  a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n      number of spirals
+      @param {number} xPos   the intial x-coordinate for this {@link Turtle}
+      @param {number} yPos   the intial y-coordinate for this {@link Turtle}
+      @param {number} z      the z-plane for this {@code Turtle}
    */
-   public SpiralTurtle(final Model model, final int n,
-                       final double xPos, final double yPos, double z)
+   constructor(model, n, xPos, yPos, z)
    {
-      super(model, xPos, yPos, z);
-      spiral(n);
+      super(model, model.name, xPos, yPos, z);
+
+      this.#spiral(n);
    }
 
 
-   private void spiral(final int n)
+   /**
+    * @param {number} n 
+    */
+   #spiral(n)
    {
-      for (int i = 0; i < n; ++i)
+      for (let i = 0; i < n; ++i)
       {
-         forward( 1.0 - ((double)i/(double)n) );
-         turn(121);
+         this.forwardDistance( 1.0 - (i/n) );
+         this.turn(121);
       }
    }
 

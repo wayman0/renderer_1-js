@@ -4,22 +4,20 @@
  * See LICENSE for details.
 */
 
-package renderer.models_L.turtlegraphics;
+//@ts-check
 
-import renderer.scene.Model;
+import {Turtle} from "./TurtleExports.js";
+import {Model} from "../../scene/SceneExports.js";
 
-/**
-
-*/
-public class PentagasketTurtle extends Turtle
+export default class PentagasketTurtle extends Turtle
 {
    /**
-      @param model  a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n      number of levels for the Pentagasket
+      @param {Model} model  a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n      number of levels for the Pentagasket
    */
-   public PentagasketTurtle(final Model model, final int n)
+   static buildModelLevels(model, n)
    {
-      this(model, n, 0.0, 0.0, 0.0);
+      return new PentagasketTurtle(model, n, 0.0, 0.0, 0.0);
    }
 
 
