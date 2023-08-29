@@ -64,7 +64,7 @@ export default class SierpinskiTurtle extends Turtle
          // draw an equlateral triangle
          for (let i = 0; i < 3; ++i)
          {
-            this.forwardDistance(length);
+            this.forward(length);
             this.turn(120);
          }
       }

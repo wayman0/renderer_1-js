@@ -64,7 +64,7 @@ export default class PolygasketTurtle extends Turtle
          // draw a N-gon
          for (let i = 0; i < n; ++i)
          {
-            this.forwardDistance(1);
+            this.forward(1);
             this.turn(360.0/n);
          }
       }

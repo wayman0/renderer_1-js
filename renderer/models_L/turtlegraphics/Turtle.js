@@ -323,33 +323,14 @@ export default class Turtle
       this.#yPos = y;
    }
 
-
-   /**
-      Move this {@code Turtle} foward one unit in the heading direction.
-   */
-   forward()
-   {
-      this.forwardDistance(1);
-   }
-
-
-   /**
-      Move this {@code Turtle} backward one unit.
-   */
-   backward()
-   {
-      this.backwardDistance(1);
-   }
-
-
    /**
       Move this {@code Turtle} backward the given number of units.
 
-      @param {number} distance  the distance to walk this {@code Turtle} backward
+      @param {number} [distance=1]  the distance to walk this {@code Turtle} backward, 1 by default
    */
-   backwardDistance(distance)
+   backward(distance = 1)
    {
-      this.forwardDistance(-distance);
+      this.forward(-distance);
    }
 
 
@@ -359,9 +340,9 @@ export default class Turtle
       {@link Vertex} objects and a {@link LineSegment} object to
       the underlying {@code Turtle}.
 
-      @param {number} distance  the distance to walk this {@code Turtle} forward in the heading direction
+      @param {number} [distance=1]  the distance to walk this {@code Turtle} forward in the heading direction 1 by default
    */
-   forwardDistance(distance)
+   forward(distance=1)
    {
       if(typeof distance != "number")
          throw new Error("Distance must be numerical");

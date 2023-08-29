@@ -58,7 +58,7 @@ export default class SpiralTurtle extends Turtle
    {
       for (let i = 0; i < n; ++i)
       {
-         this.forwardDistance( 1.0 - (i/n) );
+         this.forward( 1.0 - (i/n) );
          this.turn(121);
       }
    }

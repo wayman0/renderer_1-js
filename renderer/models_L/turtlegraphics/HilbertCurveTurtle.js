@@ -4,103 +4,96 @@
  * See LICENSE for details.
 */
 
-package renderer.models_L.turtlegraphics;
-
-import renderer.scene.Model;
-
 /**
    https://inventwithpython.com/recursion/chapter9.html#calibre_link-350
 */
-public class HilbertCurveTurtle extends Turtle
+//@ts-check
+
+import {Turtle} from "./TurtleExports.js";
+import {Model} from "../../scene/SceneExports.js";
+
+export default class HilbertCurveTurtle extends Turtle
 {
    /**
-      @param model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n       number of levels for the Hibert curve
-      @param length  side length
+      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n       number of levels for the Hibert curve
+      @param {number} length  side length
    */
-   public HilbertCurveTurtle(final Model model, final int n, final double length)
+   static buildModelLength(model, n, length)
    {
-      this(model, n, length, 0.0, 0.0, 0.0);
+      return new HilbertCurveTurtle(model, n, length, 0.0, 0.0, 0.0);
    }
 
 
    /**
-      @param model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n       number of levels for the Hibert curve
-      @param length  side length
-      @param xPos    the intial x-coordinate for this {@link Turtle}
-      @param yPos    the intial y-coordinate for this {@link Turtle}
+      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n       number of levels for the Hibert curve
+      @param {number} length  side length
+      @param {number} xPos    the intial x-coordinate for this {@link Turtle}
+      @param {number} yPos    the intial y-coordinate for this {@link Turtle}
    */
-   public HilbertCurveTurtle(final Model model, final int n, final double length,
-                            final double xPos, final double yPos)
+   static buildModelPos(model, n, length, xPos, yPos)
    {
-      this(model, n, length, xPos, yPos, 0.0);
+      return new HilbertCurveTurtle(model, n, length, xPos, yPos, 0.0);
    }
 
 
    /**
-      @param model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param n       number of levels for the Hibert curve
-      @param length  side length
-      @param xPos    the intial x-coordinate for this {@link Turtle}
-      @param yPos    the intial y-coordinate for this {@link Turtle}
-      @param z       the z-plane for this {@code Turtle}
+      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
+      @param {number} n       number of levels for the Hibert curve
+      @param {number} length  side length
+      @param {number} xPos    the intial x-coordinate for this {@link Turtle}
+      @param {number} yPos    the intial y-coordinate for this {@link Turtle}
+      @param {number} z       the z-plane for this {@code Turtle}
    */
-   public HilbertCurveTurtle(final Model model, final int n, final double length,
-                            final double xPos, final double yPos, final double z)
+   constructor(model, n, length, xPos, yPos, z)
    {
-      super(model, xPos, yPos, z);
-      curve(n, 90, length / Math.pow(2, n));
+      super(model, model.name, xPos, yPos, z);
+      this.#curve(n, 90, length / Math.pow(2, n));
    }
 
-
-   private void curve(final int n, final double angle, final double length)
+   /**
+    * 
+    * @param {number} n 
+    * @param {number} angle 
+    * @param {number} length 
+    */
+   #curve(n, angle, length)
    {
-      curveQuadrant(n, angle, length);
-
-      forward(length);
-
-      curveQuadrant(n, angle, length);
-
-      turn(-angle);
-      forward(length);
-      turn(-angle);
-
-      curveQuadrant(n, angle, length);
-
-      forward(length);
-
-      curveQuadrant(n, angle, length);
-
-      turn(-angle);
-      forward(length);
-      turn(-angle);
+      this.#curveQuadrant(n, angle, length);
+      this.forward(length);
+      this.#curveQuadrant(n, angle, length);
+      this.turn(-angle);
+      this.forward(length);
+      this.turn(-angle);
+      this.#curveQuadrant(n, angle, length);
+      this.forward(length);
+      this.#curveQuadrant(n, angle, length);
+      this.turn(-angle);
+      this.forward(length);
+      this.turn(-angle);
    }
 
-
-   private void curveQuadrant(final int n, final double angle, final double length)
+   /**
+    * @param {number} n 
+    * @param {number} angle 
+    * @param {number} length 
+    */
+   #curveQuadrant(n, angle, length)
    {
       if (n > 0)
       {
-         turn(angle);
-
-         curveQuadrant(n - 1, -angle, length);
-
-         forward(length);
-         turn(-angle);
-
-         curveQuadrant(n - 1,  angle, length);
-
-         forward(length);
-
-         curveQuadrant(n - 1,  angle, length);
-
-         turn(-angle);
-         forward(length);
-
-         curveQuadrant(n - 1, -angle, length);
-
-         turn(angle);
+         this.turn(angle);
+         this.#curveQuadrant(n - 1, -angle, length);
+         this.forward(length);
+         this.turn(-angle);
+         this.#curveQuadrant(n - 1,  angle, length);
+         this.forward(length);
+         this.#curveQuadrant(n - 1,  angle, length);
+         this.turn(-angle);
+         this.forward(length);
+         this.#curveQuadrant(n - 1, -angle, length);
+         this.turn(angle);
       }
    }
 

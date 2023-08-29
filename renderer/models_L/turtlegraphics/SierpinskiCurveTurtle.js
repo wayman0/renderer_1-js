@@ -62,7 +62,7 @@ export default class SierpinskiCurveTurtle extends Turtle
    {
       if ( 0 == n )
       {
-         this.forwardDistance(length);
+         this.forward(length);
       }
       else
       {
