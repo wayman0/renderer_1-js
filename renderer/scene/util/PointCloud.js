@@ -12,7 +12,7 @@
 */
 //@ts-check
 
-import {Model} from "../SceneExports.js";
+import {Model, Point} from "../SceneExports.js";
 
 /**
  * Method that converts a given model into a new model 
@@ -24,5 +24,30 @@ import {Model} from "../SceneExports.js";
  */
 export default function make(model, pointSize = 0)
 {
+   if(model instanceof Model == false)
+      throw new Error("Model must be a model");
 
+   if(typeof pointSize != "number")
+      throw new Error("Point size must be a number");
+
+   const pointCloud = new Model(model.vertexList, new Array(), "PointCloud: " + model.name, model.visible);
+
+   const indices = new Array(model.vertexList.length);
+
+   for(const p of model.primitiveList)
+   {
+      for(const i of p.vIndexList)
+         indices[i] = true;
+   }
+
+   for(let i = 0; i < indices.length; ++i)
+   {
+      if(indices[i])
+         pointCloud.addPrimitive(new Point(i));
+   }
+
+   for(const p of pointCloud.primitiveList)
+      /**@type {Point}*/ (p).radius = pointSize;
+
+   return pointCloud;
 }
