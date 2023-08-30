@@ -17,3 +17,18 @@ export {default as Cube2} from "./Cube2.js";
 export {default as Cube3} from "./Cube3.js";
 export {default as Cube4} from "./Cube4.js";
 
+export {default as CylinderSector} from "./CylinderSector.js";
+export {default as Cylinder} from "./Cylinder.js";
+
+export {default as DiskSector} from "./DiskSector.js";
+export {default as Disk} from "./Disk.js";
+
+export {default as Dodecahedron} from "./Dodecahedron.js";
+export {default as Icosahedron} from "./Icosahedron.js";
+export {default as Icosidodecahedron} from "./Icosidodecahedron.js";
+export {default as Octahedron} from "./Octahedron.js";
+
+export {default as PanelXY} from "./PanelXY.js";
+export {default as PanelXZ} from "./PanelXZ.js";
+export {default as PanelYZ} from "./PanelYZ.js";
+
