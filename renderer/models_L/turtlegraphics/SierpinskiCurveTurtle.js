@@ -18,35 +18,11 @@ export default class SierpinskiCurveTurtle extends Turtle
       @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
       @param {number} n       number of levels for the Sierpinski curve
       @param {number} length  side length
+      @param {number} [xPos=0]    the intial x-coordinate for this {@link Turtle}
+      @param {number} [yPos=0]    the intial y-coordinate for this {@link Turtle}
+      @param {number} [z=0]       the z-plane for this {@code Turtle}
    */
-   static buildModelLength(model, n, length)
-   {
-      return new SierpinskiCurveTurtle(model, n, length, 0.0, 0.0, 0.0);
-   }
-
-
-   /**
-      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param {number} n       number of levels for the Sierpinski curve
-      @param {number} length  side length
-      @param {number} xPos    the intial x-coordinate for this {@link Turtle}
-      @param {number} yPos    the intial y-coordinate for this {@link Turtle}
-   */
-   static buildModelLengthPos(model, n, length, xPos, yPos)
-   {
-      return new SierpinskiCurveTurtle(model, n, length, xPos, yPos, 0.0);
-   }
-
-
-   /**
-      @param {Model} model   a reference to the {@link Model} that this {@code Turtle} is builing
-      @param {number} n       number of levels for the Sierpinski curve
-      @param {number} length  side length
-      @param {number} xPos    the intial x-coordinate for this {@link Turtle}
-      @param {number} yPos    the intial y-coordinate for this {@link Turtle}
-      @param {number} z       the z-plane for this {@code Turtle}
-   */
-   constructor(model, n, length, xPos, yPos, z)
+   constructor(model, n, length, xPos=0, yPos=0, z=0)
    {
       super(model, model.name, xPos, yPos, z);
       this.#curve(n, length, 60);

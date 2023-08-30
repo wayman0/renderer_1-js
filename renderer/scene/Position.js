@@ -73,7 +73,7 @@ export default class Position
    /**
     * Construct a position with the given data.
     * 
-    * @param {Model} [model=new Model] this positions model
+    * @param {Model} [model=new Model()] this positions model
     * @param {Vector} [vector = new Vector(0, 0, 0)] this positions matrix
     * @param {string} [name=""] this positions name
     * @param {boolean} [visible=true] whether to render this position
