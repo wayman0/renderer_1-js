@@ -27,8 +27,25 @@ export {default as Dodecahedron} from "./Dodecahedron.js";
 export {default as Icosahedron} from "./Icosahedron.js";
 export {default as Icosidodecahedron} from "./Icosidodecahedron.js";
 export {default as Octahedron} from "./Octahedron.js";
+export {default as Tetrahedron} from "./Tetrahedron.js";
 
 export {default as PanelXY} from "./PanelXY.js";
 export {default as PanelXZ} from "./PanelXZ.js";
 export {default as PanelYZ} from "./PanelYZ.js";
+
+export {default as Pyramid} from "./Pyramid.js";
+export {default as PyramidFrustum} from "./PyramidFrustum.js";
+
+export {default as RingSector} from "./RingSector.js";
+export {default as Ring} from "./Ring.js";
+
+export {default as SphereSubdivided} from "./SphereSubdivided.js";
+export {default as SphereSector} from "./SphereSector.js";
+export {default as Sphere} from "./Sphere.js";
+
+export {default as Square} from "./Square.js";
+export {default as SquareGrid} from "./SquareGrid.js";
+
+export {default as TorusSector} from "./TorusSector.js";
+export {default as Torus} from "./Torus.js";
 
